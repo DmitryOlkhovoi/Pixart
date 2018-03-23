@@ -54,28 +54,30 @@ export default {
     getFlatIndex(x, y) {
       return x + y * this.width;
     },
+
     getPixelCoordinates(e) {
       return [
         Math.floor((e.pageX - this.$refs.canvas.offsetLeft) / this.scale),
         Math.floor((e.pageY - this.$refs.canvas.offsetTop) / this.scale),
       ];
     },
+
     onClick(e) {
-      const [x, y] = this.getPixelCoordinates(e)
-      this.$emit('onPixelInteraction', this.getFlatIndex(x, y))
+      this.$emit('onClick', this.getPixelCoordinates(e))
     },
+
     onMouseDown() {
-      this.paint = true
+      this.$emit('onMouseDown')
     },
+
     onMouseMove(e) {
-      if (this.paint) {
-        const [x, y] = this.getPixelCoordinates(e)
-        this.$emit('onPixelInteraction', this.getFlatIndex(x, y))
-      }
+      this.$emit('onMouseMove', this.getPixelCoordinates(e))
     },
+
     onMouseUp() {
-      this.paint = false
+      this.$emit('onMouseUp')
     },
+
     renderPixel(x, y) {
       let fillColor = this.pixels.get(this.getFlatIndex(x, y));
 
@@ -86,6 +88,7 @@ export default {
       this.context.fillStyle = fillColor
       this.context.fillRect(x, y, 1, 1);
     },
+
     renderPixels() {
       this.context.clearRect(0, 0, this.width, this.height);
       for (let x = 0; x < this.width; x += 1) {
@@ -94,6 +97,7 @@ export default {
         }
       }
     },
+    
     renderCanvas() {
       this.renderPixels()
     },
