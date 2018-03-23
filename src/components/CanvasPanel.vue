@@ -21,39 +21,44 @@ export default {
   name: 'CanvasPanel',
   components: { Canvas },
   props: ['scale', 'color'],
+
   data: () => ({
     paint: false,
     lastPixel: null,
   }),
+
   computed: mapState({
     pixels: state => state.pixels,
   }),
+
   methods: {
     ...mapMutations([
       'fillPixel'
     ]),
-    fillPixelAt(index) {
+    fillPixelWithColor([x, y]) {
       this.fillPixel({
-        index,
+        index: getFlatIndex(x, y, 100),
         color: this.color.hex,
       })
     },
+
     fillLine(fromPixel, toPixel) {
       const [x1, y1] = fromPixel
       const [x2, y2] = toPixel
       const pixelsToFill = bresenham(x1, y1, x2, y2)
 
       pixelsToFill.forEach((pixel) =>
-        this.fillPixelAt(
-          getFlatIndex(pixel.x, pixel.y, 100))
-        )
+        this.fillPixelWithColor([pixel.x, pixel.y]))
     },
-    onClick([x, y]) {
-      this.fillPixelAt(getFlatIndex(x, y, 100))
+
+    onClick(pixel) {
+      this.fillPixelWithColor(pixel)
     },
+
     onMouseDown() {
       this.paint = true
     },
+
     onMouseMove(pixel) {
       if (this.paint) {
         if (!this.lastPixel) {
@@ -64,6 +69,7 @@ export default {
         }
       }
     },
+
     onMouseUp() {
       this.paint = false
       this.lastPixel = null
