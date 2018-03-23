@@ -1,8 +1,8 @@
 <template>
   <div class="RightPanel-wrapper">
-    <Compact v-model="color" @input="updateValue" />
     <Chrome v-model="color" @input="updateValue" />
     <small class="form-text text-muted">Choose any color you want</small>
+    <Compact v-model="color" @input="updateValue" />
   </div>
 </template>
 
@@ -34,11 +34,11 @@ export default {
   }
 
   .vc-compact {
+    margin-top: 20px;
     width: 245px;
   }
 
   .vc-chrome {
-    margin-top: 20px;
     margin-bottom: 10px;
   }
 </style>
