@@ -3,6 +3,9 @@
     <canvas
       ref="canvas"
       @click="onClick"
+      @mousedown="onMouseDown"
+      @mousemove="onMouseMove"
+      @mouseup="onMouseUp"
       :width="width"
       :height="height"
       :style="`width: ${scale * width}px; height: ${scale * height}px;`"
@@ -12,6 +15,8 @@
 </template>
 
 <script>
+import { List } from 'immutable'
+
 export default {
   name: 'Canvas',
   props: {
@@ -28,8 +33,8 @@ export default {
       default: 100,
     },
     pixels: {
-      type: Array,
-      default: () => [],
+      type: Object,
+      default: () => List(),
     },
   },
   data() {
@@ -57,10 +62,22 @@ export default {
     },
     onClick(e) {
       const [x, y] = this.getPixelCoordinates(e)
-      this.$emit('onPixelClick', this.getFlatIndex(x, y))
+      this.$emit('onPixelInteraction', this.getFlatIndex(x, y))
+    },
+    onMouseDown() {
+      this.paint = true
+    },
+    onMouseMove(e) {
+      if (this.paint) {
+        const [x, y] = this.getPixelCoordinates(e)
+        this.$emit('onPixelInteraction', this.getFlatIndex(x, y))
+      }
+    },
+    onMouseUp() {
+      this.paint = false
     },
     renderPixel(x, y) {
-      let fillColor = this.pixels[this.getFlatIndex(x, y)];
+      let fillColor = this.pixels.get(this.getFlatIndex(x, y));
 
       if (!fillColor) {
         fillColor = (x + y) % 2 === 0 ? '#e7e7e7' : 'white';

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Canvas :pixels="pixels" :scale="scale" @onPixelClick="onPixelClick" />
+    <Canvas :pixels="pixels" :scale="scale" @onPixelInteraction="onPixelInteraction" />
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
     ...mapMutations([
       'fillPixel'
     ]),
-    onPixelClick(index) {
+    onPixelInteraction(index) {
       this.fillPixel({
         index,
         color: this.color.hex,
