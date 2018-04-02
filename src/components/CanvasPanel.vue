@@ -35,6 +35,7 @@ export default {
     ...mapMutations([
       'fillPixel'
     ]),
+    
     fillPixelWithColor([x, y]) {
       this.fillPixel({
         index: getFlatIndex(x, y, 100),

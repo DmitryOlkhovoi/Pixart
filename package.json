@@ -13,6 +13,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-solid": "^5.0.9",
     "bootstrap": "^4.0.0",
     "bootstrap-vue": "^2.0.0-rc.2",
     "bresenham": "0.0.4",

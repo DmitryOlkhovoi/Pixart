@@ -1,5 +1,5 @@
 <template>
-  <div class="Canvas-wrapper">
+  <div ref="canvasWrapper" class="Canvas-wrapper">
     <canvas
       ref="canvas"
       @click="onClick"
@@ -10,7 +10,7 @@
       :height="height"
       :style="`width: ${scale * width}px; height: ${scale * height}px;`"
     >
-  </canvas>
+    </canvas>
   </div>
 </template>
 
@@ -37,10 +37,6 @@ export default {
       default: () => List(),
     },
   },
-  data() {
-    return {
-    };
-  },
   mounted() {
     this.context = this.$refs.canvas.getContext('2d');
     this.renderCanvas();
@@ -57,8 +53,8 @@ export default {
 
     getPixelCoordinates(e) {
       return [
-        Math.floor((e.pageX - this.$refs.canvas.offsetLeft) / this.scale),
-        Math.floor((e.pageY - this.$refs.canvas.offsetTop) / this.scale),
+        Math.floor((e.pageX - this.$refs.canvas.offsetLeft + this.$refs.canvasWrapper.scrollLeft) / this.scale),
+        Math.floor((e.pageY - this.$refs.canvas.offsetTop + this.$refs.canvasWrapper.scrollTop) / this.scale),
       ];
     },
 
@@ -105,7 +101,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   canvas {
     image-rendering: -moz-crisp-edges;
