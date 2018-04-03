@@ -1,5 +1,7 @@
 # pixart
 
+[Demo](https://dmitryolkhovoi.github.io/Pixart/dist/index.html)
+
 > A Vue.js project
 
 ## Build Setup
@@ -13,6 +15,9 @@ npm run dev
 
 # build for production with minification
 npm run build
+
+# build for github pages with minification
+npm run buildGithub
 
 # build for production and view the bundle analyzer report
 npm run build --report

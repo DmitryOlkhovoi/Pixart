@@ -8,9 +8,13 @@ export const mutations = {
   fillPixel(state, payload) {
     const { index, color } = payload;
 
-    // state.pixels.splice(index, 1, color);
-
     state.pixels = state.pixels.set(index, color);
+  },
+
+  fillPixels(state, payload) {
+    state.pixels = payload.reduce(
+      (acc, current) => acc.set(current.index, current.color), state.pixels,
+    );
   },
 };
 

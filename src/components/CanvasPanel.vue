@@ -33,7 +33,8 @@ export default {
 
   methods: {
     ...mapMutations([
-      'fillPixel'
+      'fillPixel',
+      'fillPixels'
     ]),
     
     fillPixelWithColor([x, y]) {
@@ -43,13 +44,19 @@ export default {
       })
     },
 
+    fillPixelsWithColor(pixels) {
+      this.fillPixels(pixels.map(({x, y}) => ({
+        index: getFlatIndex(x, y, 100),
+        color: this.color.hex,
+      })))
+    },
+
     fillLine(fromPixel, toPixel) {
       const [x1, y1] = fromPixel
       const [x2, y2] = toPixel
       const pixelsToFill = bresenham(x1, y1, x2, y2)
 
-      pixelsToFill.forEach((pixel) =>
-        this.fillPixelWithColor([pixel.x, pixel.y]))
+      this.fillPixelsWithColor(pixelsToFill)
     },
 
     onClick(pixel) {
