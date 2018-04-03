@@ -8,8 +8,6 @@
       <b-button @click="zoomIn">
         <i class="fas fa-plus"></i>
       </b-button>
-    </b-button-group>
-    <b-button-group size="sm">
       <b-button :disabled="!undoIsPossible" @click="undo">
         <i class="fas fa-undo-alt"></i>
         Undo
@@ -17,6 +15,10 @@
       <b-button :disabled="!redoIsPossible" @click="redo">
         <i class="fas fa-redo-alt"></i>
         Redo
+    </b-button>
+    <b-button :disabled="!clearIsPossible" @click="clearAll">
+      <i class="fas fa-trash-alt"></i>
+      Clear
     </b-button>
     </b-button-group>
   </div>
@@ -29,15 +31,16 @@ export default {
   name: 'TopPanel',
   props: ['scale'],
   computed: {
-    ...mapGetters(['undoIsPossible', 'redoIsPossible']),
+    ...mapGetters(['undoIsPossible', 'redoIsPossible', 'clearIsPossible']),
     scaleText() {
       return `${100 * this.scale}%`
-    }
+    },
   },
   methods: {
     ...mapMutations([
       'prevSnapshot',
-      'nextSnapshot'
+      'nextSnapshot',
+      'clearAll'
     ]),
     zoomOut() {
       if (this.scale > 0.5) {
