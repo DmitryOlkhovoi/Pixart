@@ -50,7 +50,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: process.env.GITHUB_ENV ? 'https://dmitryolkhovoi.github.io/Pixart/' : '/',
+    assetsPublicPath: process.env.GITHUB_ENV ? 'https://dmitryolkhovoi.github.io/Pixart/dist/' : '/',
 
     /**
      * Source Maps
