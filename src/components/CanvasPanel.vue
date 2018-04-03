@@ -34,7 +34,8 @@ export default {
   methods: {
     ...mapMutations([
       'fillPixel',
-      'fillPixels'
+      'fillPixels',
+      'makeSnapshot'
     ]),
     
     fillPixelWithColor([x, y]) {
@@ -81,6 +82,7 @@ export default {
     onMouseUp() {
       this.paint = false
       this.lastPixel = null
+      this.makeSnapshot()
     },
   } 
 }
