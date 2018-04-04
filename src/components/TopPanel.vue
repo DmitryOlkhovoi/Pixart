@@ -2,11 +2,11 @@
   <div>
     <b-button-group size="sm">
       <b-button @click="zoomOut">
-        <i class="fas fa-minus"></i>
+        <i class="fas fa-search-minus"></i>
       </b-button>
       <span class="zoom-indicator">{{scaleText}}</span>
       <b-button @click="zoomIn">
-        <i class="fas fa-plus"></i>
+        <i class="fas fa-search-plus"></i>
       </b-button>
       <b-button :disabled="!undoIsPossible" @click="undo">
         <i class="fas fa-undo-alt"></i>
@@ -16,7 +16,7 @@
         <i class="fas fa-redo-alt"></i>
         Redo
     </b-button>
-    <b-button :disabled="!clearIsPossible" @click="clearAll">
+    <b-button :disabled="!clearIsPossible" @click="clearConfirm">
       <i class="fas fa-trash-alt"></i>
       Clear
     </b-button>
@@ -58,6 +58,11 @@ export default {
     redo() {
       this.nextSnapshot()
     },
+    clearConfirm() {
+      if (confirm('Clear canvas?')) {
+        this.clearAll()
+      }
+    }
   }
 }
 </script>

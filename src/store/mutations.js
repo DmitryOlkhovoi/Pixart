@@ -22,8 +22,8 @@ export const mutations = {
   },
 
   clearAll(state) {
-    state.snapshots = [defaultPixels];
     state.snapshotPointer = 0;
+    state.snapshots = [defaultPixels];
     state.pixels = state.snapshots[state.snapshotPointer];
   },
 
